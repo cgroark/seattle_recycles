@@ -23,16 +23,13 @@ class App extends Component {
     fetch(recApi)
       .then((response) => {
         response.json().then((json) => {
-        console.log('json', json)
         let slicedData = json.map(item => {
             var yearEach = item.year.slice(0,4);
             year.push(parseInt(yearEach))
         })
         let indexFirst = year.indexOf(parseInt(this.state.startYear));
         let indexLast = year.indexOf(parseInt(this.state.endYear))
-        console.log('state of start year', indexFirst, indexLast)
         let range = json.slice(indexFirst,indexLast + 1)
-        console.log(range)
         this.setState({recData: range});
       }).catch((err) => {
         console.log("error found in parsing", err)
@@ -53,10 +50,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Seattle Recycling Rates</h1>
+          <h1 className="App-title">Seattle Recycling Rate Comparison</h1>
         </header>
-        <p className="App-intro">Compare Seattle Recycling rates for 2003-2015</p>
-        <input type="button" value="Fetch Data" onClick={this.handleClick} />
         <select className="drop-down" required onChange={this.startYear}>
             <option  defaultValue="">Start Year</option>
             <option  value="2003">2003</option>
@@ -72,7 +67,6 @@ class App extends Component {
             <option  value="2013">2013</option>
             <option  value="2014">2014</option>
           </select>
-
           <select className="drop-down" required onChange={this.endYear}>
             <option  defaultValue="">End Year</option>
             <option  value="2004">2004</option>
@@ -88,6 +82,7 @@ class App extends Component {
             <option  value="2014">2014</option>
             <option  value="2015">2015</option>
           </select>
+          <input className="button-get" type="button" value="Compare" onClick={this.handleClick} />
         <Recycling recycle = {this.state.recData} start = {this.state.startYear} end = {this.state.endYear} />
       </div>
     );
