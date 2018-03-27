@@ -6,7 +6,9 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state={
-      recData: []
+      recData: [],
+      startYear: '',
+      endYear: ''
     }
 
   this.handleClick = this.handleClick.bind(this)
@@ -21,21 +23,22 @@ class App extends Component {
       .then((response) => {
         response.json().then((json) => {
         this.setState({recData: json});
+        console.log(this.state.startYear)
+         console.log(this.state.endYear)
       }).catch((err) => {
         console.log("error found in parsing", err)
       }); 
       })
   }
-  startYear(e){
+  startYear = (e) => {
     e.preventDefault();
-    let years = []
-    let allData = this.state.recData.map(item => {
-      let year = item.year.slice(0,4)
-      years.push(year)
-      console.log(years)
-
-    })
+    this.setState({startYear: e.target.value});
   }
+  endYear = (e) => {
+    e.preventDefault();
+    this.setState({endYear: e.target.value});
+  }
+
 
   render() {
     return (
@@ -53,11 +56,12 @@ class App extends Component {
             <option  value="2006">2006</option>
             <option  value="2007">2007</option>
             <option  value="2008">2008</option>
-            <option  value="2008">2010</option>
-            <option  value="2008">2011</option>
-            <option  value="2008">2012</option>
-            <option  value="2008">2013</option>
-            <option  value="2008">2014</option>
+            <option  value="2009">2009</option>
+            <option  value="2010">2010</option>
+            <option  value="2011">2011</option>
+            <option  value="2012">2012</option>
+            <option  value="2013">2013</option>
+            <option  value="2014">2014</option>
           </select>
 
           <select className="drop-down" required onChange={this.endYear}>
@@ -67,14 +71,15 @@ class App extends Component {
             <option  value="2006">2006</option>
             <option  value="2007">2007</option>
             <option  value="2008">2008</option>
-            <option  value="2008">2010</option>
-            <option  value="2008">2011</option>
-            <option  value="2008">2012</option>
-            <option  value="2008">2013</option>
-            <option  value="2008">2014</option>
-            <option  value="2008">2015</option>
+            <option  value="2009">2009</option>
+            <option  value="2010">2010</option>
+            <option  value="2011">2011</option>
+            <option  value="2012">2012</option>
+            <option  value="2013">2013</option>
+            <option  value="2014">2014</option>
+            <option  value="2015">2015</option>
           </select>
-        <Recycling recycle = {this.state.recData} />
+        <Recycling recycle = {this.state.recData} start = {this.state.startYear} end = {this.state.endYear} />
       </div>
     );
   }
