@@ -24,10 +24,13 @@ class Recycling extends Component{
 			eachTonn.Disposed = item.disposed 
 			eachTonn.Recycled = item.recycled 
 			dataTonn.push(eachTonn)	
+
 		})
+		
 		return(
 			<div>
 			<div className="line-chart">
+			{console.log(dataTonn)}
 				<h3>Annual recycling rates (%)</h3>
 				<LineChart width={400} height={400} data={dataRate}
 					margin={{top: 5, right: 20, bottom: 5, left: 0}}>

@@ -18,13 +18,22 @@ class App extends Component {
 
   handleClick(e){
     e.preventDefault();
+    let year = [];
     let recApi = "https://performance.seattle.gov/resource/28jq-psn3.json?$$app_token=gPJkv0UyrUI43VB2spGv2uKxz"
     fetch(recApi)
       .then((response) => {
         response.json().then((json) => {
-        this.setState({recData: json});
-        console.log(this.state.startYear)
-         console.log(this.state.endYear)
+        console.log('json', json)
+        let slicedData = json.map(item => {
+            var yearEach = item.year.slice(0,4);
+            year.push(parseInt(yearEach))
+        })
+        let indexFirst = year.indexOf(parseInt(this.state.startYear));
+        let indexLast = year.indexOf(parseInt(this.state.endYear))
+        console.log('state of start year', indexFirst, indexLast)
+        let range = json.slice(indexFirst,indexLast + 1)
+        console.log(range)
+        this.setState({recData: range});
       }).catch((err) => {
         console.log("error found in parsing", err)
       }); 
